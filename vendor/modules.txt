@@ -1,14 +1,10 @@
 # github.com/julienschmidt/httprouter v1.3.0
 ## explicit
 github.com/julienschmidt/httprouter
+# github.com/lib/pq v1.10.2
+## explicit
+github.com/lib/pq
+github.com/lib/pq/oid
+github.com/lib/pq/scram
 # golang.org/x/net v0.0.0-20210525063256-abc453219eb5
 ## explicit
-golang.org/x/net/http/httpguts
-golang.org/x/net/http2
-golang.org/x/net/http2/hpack
-golang.org/x/net/idna
-# golang.org/x/text v0.3.6
-golang.org/x/text/secure/bidirule
-golang.org/x/text/transform
-golang.org/x/text/unicode/bidi
-golang.org/x/text/unicode/norm
