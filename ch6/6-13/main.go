@@ -51,7 +51,7 @@ func GetPost(id int) (post Post, err error) {
 		return
 	}
 
-	rows, err := Db.Query("select id content, author from comments")
+	rows, err := Db.Query("select id, content, author from comments")
 	if err != nil {
 		return
 	}
@@ -76,16 +76,12 @@ func (p *Post) Create() (err error) {
 
 func main() {
 	post := Post{Content: "hello world", Author: "zhao fengqin"}
-	fmt.Println(post)
-	err := post.Create()
-	fmt.Println(post)
-	fmt.Println(err)
+	post.Create()
 	comment := Comment{Content: "good post", Author: "joe", Post: &post}
 	comment.Create()
 	readPost, _ := GetPost(post.Id)
 
 	fmt.Println(readPost)
-	fmt.Println()
 	fmt.Println(readPost.Comments)
 	fmt.Println(readPost.Comments[0].Post)
 }
