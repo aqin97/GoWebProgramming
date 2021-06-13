@@ -1,5 +1,5 @@
-drop table posts cascade if exists;
-drop table comments if exists;
+drop table if exists posts cascade;
+drop table if exists comments;
 
 create table posts (
     id serial primary key,
@@ -10,6 +10,6 @@ create table posts (
 create table comments (
     id serial primary key,
     context text,
-    author varchar(255)
+    author varchar(255),
     post_id integer references posts(id)
 );

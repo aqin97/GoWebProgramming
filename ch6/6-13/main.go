@@ -9,10 +9,10 @@ import (
 )
 
 type Post struct {
-	Id      int
-	Content string
-	Author  string
-	Comment []Comment
+	Id       int
+	Content  string
+	Author   string
+	Comments []Comment
 }
 
 type Comment struct {
@@ -36,14 +36,14 @@ func (c *Comment) Create() error {
 	if c.Post == nil {
 		return errors.New("post not found")
 	}
-	err := Db.QueryRow("insert into comments (content, author, post_id) values ($1 $2 $3) returning id",
+	err := Db.QueryRow("insert into comments (content, author, post_id) values ($1, $2, $3) returning id",
 		c.Content, c.Author, c.Post.Id).Scan(&c.Id)
 	return err
 }
 
 func GetPost(id int) (post Post, err error) {
 	post = Post{}
-	post.Comment = []Comment{}
+	post.Comments = []Comment{}
 
 	err = Db.QueryRow("select id, content, author from posts where id = $1", id).Scan(&post.Id, &post.Content, &post.Author)
 
@@ -61,7 +61,7 @@ func GetPost(id int) (post Post, err error) {
 		if err != nil {
 			return
 		}
-		post.Comment = append(post.Comment, comment)
+		post.Comments = append(post.Comments, comment)
 	}
 	rows.Close()
 
@@ -69,21 +69,23 @@ func GetPost(id int) (post Post, err error) {
 }
 
 func (p *Post) Create() (err error) {
-	err = Db.QueryRow("insert into posts (content, author) values ($1 $2) returning id",
+	err = Db.QueryRow("insert into posts (content, author) values ($1, $2) returning id",
 		p.Content, p.Author).Scan(&p.Id)
 	return
 }
 
 func main() {
 	post := Post{Content: "hello world", Author: "zhao fengqin"}
-	post.Create()
 	fmt.Println(post)
+	err := post.Create()
+	fmt.Println(post)
+	fmt.Println(err)
 	comment := Comment{Content: "good post", Author: "joe", Post: &post}
 	comment.Create()
 	readPost, _ := GetPost(post.Id)
 
 	fmt.Println(readPost)
 	fmt.Println()
-	fmt.Println(readPost.Comment)
-	fmt.Println(readPost.Comment[0].Post)
+	fmt.Println(readPost.Comments)
+	fmt.Println(readPost.Comments[0].Post)
 }
