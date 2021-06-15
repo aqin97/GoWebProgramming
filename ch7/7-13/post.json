@@ -1,0 +1,20 @@
+{
+	"id": 1,
+	"content": "helloworld",
+	"author": {
+		"id": 2,
+		"name": "zhao fengqin"
+	},
+	"comments": [
+		{
+			"id": 3,
+			"content": "good post",
+			"author": "adam"
+		},
+		{
+			"id": 4,
+			"content": "have a nice day",
+			"author": "betty"
+		}
+	]
+}
