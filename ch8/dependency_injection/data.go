@@ -11,9 +11,11 @@ func (post *Post) create() error {
 }
 
 func (post *Post) update() error {
-
+	_, err := post.Db.Exec("update posts set content = $2, author = $3 where id = $1", post.Content, post.Author, post.Id)
+	return err
 }
 
 func (post *Post) delete() error {
-
+	_, err := post.Db.Exec("delete from post where id = $1", post.Id)
+	return err
 }
